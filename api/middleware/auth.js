@@ -2,7 +2,9 @@ const passport = require('passport')
 const User = require('../models/user');
 const JWT = require('jsonwebtoken');
 const PassportJWT = require('passport-JWT');
+require('colors');
 // const ExtractJwt = PassportJWT.ExtractJwt;
+
 
 //ADD COOKIE MIDDDLEWARE FOR cookie
 //https://github.com/peerism/peerai/compare/feat/mix-jwt-cookies
@@ -46,6 +48,7 @@ function checkJWT() {
 }
 
 function signJWTForUser(req, res) {
+  console.log("signJWTForUser");
   const user = req.user
   // user.id = User.find({email:user.email})
   const token = JWT.sign({
@@ -63,13 +66,15 @@ function signJWTForUser(req, res) {
 }
 
 function register(req,res,next) {
+  console.log("registering");
+  //create new user in mongo
+
   const user =  new User({
     // attributes coming in form the wire
     email: req.body.email,
     firstName: req.body.firstName,
     lastName: req.body.lastName
   })
-  console.log('user create is: ', user);
   User.register(user, req.body.password, (error, user) => {
     if (error) {
       next(error);
@@ -81,18 +86,23 @@ function register(req,res,next) {
   })
 }
 
+//we need to find the user in the database and their _id to pass to signJWTForUser
 function signIn(req,res,next) {
-  const theUser = User.find({email:req.email}, function (err, user) {
-        done(err, user);
+  console.log('signIn function');
+  const user = User.find({email:req.body.email}, function (err, user) {
+    console.log(err,user);
+        // done(err, user);
     });
-  req.user._id = theUser._id;
-  next()
+  req.user = user;
+  req.user._id = user._id;
+  console.log("req.user".green,user);
+  next();
 }
 
 module.exports = {
   initialize: [passport.initialize(), passport.session()],
   register,
-  signIn: passport.authenticate('local' ,{session:false} ),
+  signIn,//: passport.authenticate('local' ,{session:false} ),
   signJWTForUser,
   requireJWT: passport.authenticate('jwt', {session:false})
 }

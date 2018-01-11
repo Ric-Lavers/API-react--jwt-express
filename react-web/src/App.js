@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 import MovieForm from './components/MovieForm'
 import MoviesList from './components/MovieList'
-import LogIn from './components/SignIn'
+import MoviesPage from './pages/MoviesPage'
+import LogIn from './components/LogIn'
 import * as moviesAPI from './api/moviesAPI'
 import LogInForm from './auth/LogInForm.js'
 import * as userAPI from './api/userAPI'
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 
 class App extends Component {
     state = { movies: [] }
@@ -71,38 +73,41 @@ class App extends Component {
   }
 
   handleSignIn = (user) =>{
-    console.log(user);
-    userAPI.logIn(user, function (err, JST_token) {
-      window.localStorage.setItem( 'token', JST_token )
-    })
+    userAPI.logIn(user)
+            //   , function (err, JST_token) {
+            //   return window.localStorage.setItem( 'token', JST_token )
+            // })
     // window.localStorage.setItem( 'token', JWT_token )
     // window.localStorage.getItem( 'token')
     // window.localStorage.removeItem()
   }
+
   jwtPresent = () =>{
-  if (!window.localStorage.getItem('jwt'))
-   { return "No JWT"}
-}
+    if (!window.localStorage.getItem('jwt'))
+     { return "No JWT"}
+  }
+
   render() {
     const loggedIn = this.jwtPresent();
 
     const {movies} = this.state;
     return (
+      <Router>
         <div className="App">
-
-      
             {loggedIn && <LogInForm onSubmit={this.handleRegistration} />}
-
             <LogIn onSubmit={this.handleSignIn} />
+
             <MovieForm onSubmit={this.handleNewMovie} />
 
-            {movies?(
-                    <MoviesList onSubmit={this.handleNewMovie} movies={ movies } onDelete={this.handleDelete}/>
-                ):(
-                    "Loading..."
-                )
-            }
+          
+          {movies?(
+                  <MoviesList onSubmit={this.handleNewMovie} movies={ movies } onDelete={this.handleDelete}/>
+              ):(
+                  "Loading..."
+              )}
+
         </div>
+      </Router>
     );
   }
 }

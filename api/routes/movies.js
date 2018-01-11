@@ -31,9 +31,9 @@ const logger = (req, res, next) => {
     CountLog.find()
     next();
 }
-
-router.get('/',authMiddleware.requireJWT,(req,res) => {
-    Movie.find()las
+// router.get('/',authMiddleware.requireJWT,(req,res) => {
+router.get('/',(req,res) => {
+    Movie.find()
     .populate('director')
     // .populate('crew.person')
     .then(movies => {

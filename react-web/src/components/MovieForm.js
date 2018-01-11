@@ -53,13 +53,17 @@ export default class MovieForm extends React.Component {
         <form onSubmit={this.handleFormSubmit}>
           <div  className="not-button" style={this.state.open?({display:'flex'}):({display:'none'})}>
           <br/>
+          div
             <label><span className='label-span'>Title</span> <input placeholder={this.current && this.current.title} type="text" name="title"></input> </label>
             <label><span className='label-span'>Year</span> <input placeholder={this.current && this.current.year} type="number" name="year"></input> </label>
             <label><span className='label-span'>Star</span> <input placeholder={this.current && this.current.star} type="text" name="star"></input> </label>
-            <span className='label-span'>Director</span>
+
+        {/*    <span className='label-span'>Director</span>
                   <label>first name<input type="text" placeholder={this.current && this.current.director.firstName} name="directorFirst"></input> </label>
                   <label>last name<input type="text" placeholder={this.current && this.current.director.lastName} name="directorLast"></input></label>
-          </div>
+*/}
+
+      </div>
           <button type="submit"> {this.current?(" Edit Movie"):(" Create Movie")} </button>
         </form>
     )

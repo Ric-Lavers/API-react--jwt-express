@@ -18,8 +18,10 @@ router.post('/register',
 );
 
 // Sign in user
-router.post('/signin', function (req,res) {
-  authMiddleware.signIn,
+router.post('/signin', function (req,res,next) {
+  console.log("signing in ...", req.body),
+  authMiddleware.signIn(req,res,next),
+  console.log("middleware..."),
   authMiddleware.signJWTForUser
 
   // middleware that allows us to sign in

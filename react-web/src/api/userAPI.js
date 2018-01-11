@@ -9,8 +9,8 @@ export function save(movie) {
 };
 
 export function logIn(user) {
-  const jwt = window.localStorage.getItem('jwt');
-  if (!jwt) { console.log('Redirect to register page'); }
+  var jwt = window.localStorage.getItem('jwt');
+  if (!jwt) { console.log('Redirect to register page'); jwt = "nothing" }
 
   return fetch('/auth/signin', {
     method: 'POST',
@@ -22,6 +22,7 @@ export function logIn(user) {
   })
   .then(res => { return res.json(); })
   .then(data => {
+    console.log(data);
     // Set jwt again since may extend expiry
     window.localStorage.setItem('jwt', data.token);
     console.log('Logged in :', data);
