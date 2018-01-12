@@ -6,6 +6,7 @@ const app = express()
 const moviesRouter = require('./routes/movies');
 const authMiddleware = require('./middleware/auth')
 
+
 app.use(require('cookie-parser')());
 //set to a JSON response
 app.use(bodyParser.json()); //
