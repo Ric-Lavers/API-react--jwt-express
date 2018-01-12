@@ -1,4 +1,5 @@
 {
+  "name": "foo",
   "dependencies": {
     "body-parser": "^1.18.2",
     "colors": "^1.1.2",
@@ -8,6 +9,7 @@
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.13.6",
+    "now": "^9.0.1",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
     "passport-local": "^1.0.0",
@@ -17,8 +19,7 @@
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "mocha": "^4.0.1",
-    "nodemon": "^1.12.4",
-    "now": "^9.0.1"
+    "nodemon": "^1.12.4"
   },
   "scripts": {
     "dev": "nodemon server.js",
