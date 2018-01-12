@@ -22,6 +22,7 @@
   },
   "scripts": {
     "dev": "nodemon server.js",
-    "test": "NODE_ENV= npx mocha --watch --recursive test/**/*_test.js"
+    "test": "NODE_ENV= npx mocha --watch --recursive test/**/*_test.js",
+    "start": "node server.js"
   }
 }
